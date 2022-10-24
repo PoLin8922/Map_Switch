@@ -1,0 +1,18 @@
+{
+    "first_a":{
+        "map_path": "/home/adv/NavMap/ITRI/B14_Indoor/mymap.yaml",
+        "initial_pose": [29.3330860138, -15.2780687332, 1.53373789787]
+    },
+    "first_b":{
+        "map_path": "/home/adv/NavMap/ITRI/B14_Indoor/mymap.yaml",
+        "initial_pose": [19.1861743927, 34.5959701538, -1.50449383259]
+    },
+    "b_2":{
+        "map_path": "/home/adv/NavMap/ITRI/B14_Outdoor/mymap.yaml",
+        "initial_pose": [12.6051836014, 32.0111923218, 1.28011512756]
+    },
+    "a_2":{
+        "map_path": "/home/berlin/catkin_ws/src/rdd21_deliverybot/deliverybot_mapping/maps/building/lobby.yaml",
+        "initial_pose": [5.123981798012704, -7.099363742962896, -0.10891032221562563]
+    }
+}

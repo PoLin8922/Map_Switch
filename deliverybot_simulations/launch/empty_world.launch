@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<launch>
+    
+    <param name="/use_sim_time" value="true"/>
+    <arg name="gui" default="true" />
+
+    <!--launch gazebo world-->
+    <group if="$(arg gui)">
+        <node name="gazebo" pkg="gazebo_ros" type="gazebo"  />
+    </group>
+
+    <group unless="$(arg gui)">
+        <node name="gazebo" pkg="gazebo_ros" type="gzserver"  />
+    </group>
+
+    <!--launch rviz-->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find deliverybot_description)/rviz/rviz.rviz"/>
+
+    <!--spown dbot in gazebo world-->
+    <group ns="dbot">
+        <param name="tf_prefix" value="dbot" />
+        <arg name="x" default="0.0"/>
+        <arg name="y" default="0.0"/>
+        <arg name="z" default="0.3"/>
+        <param name="robot_description" command="$(find xacro)/xacro '$(find deliverybot_description)/urdf/dbot.xacro'"/>
+        
+        <!-- Start dbot Control -->
+        <rosparam file="$(find deliverybot_control)/config/deliverybot_control.yaml" command="load"/>
+        <node name="robot_controller_spawn" pkg="controller_manager" type="spawner" respawn="false" output="screen"
+            args="
+                door_position_controller
+                pusher_position_controller
+                joint_state_controller
+                "
+        />
+        
+        <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+        <node name="deliverybot_hw_controller" pkg="deliverybot_control" type="deliverybot_hw_controller.py" />
+        <node name="dbot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -param robot_description -model dbot -x $(arg x) -y $(arg y) -z $(arg z)  -Y 1.5707 -J joint_door -1.5707"/>
+    </group>
+
+    <!--launch AMCL and move_base-->
+    <include file="$(find deliverybot_navigation)/launch/deliverybot_navigation.launch">
+    </include>
+
+    <!--load 3D point cloud map-->
+    <group ns="map_loader">
+        <arg name="roll" default="0.0" />
+        <arg name="pitch" default="0.0" />
+        <arg name="yaw" default="0.0" />
+        <arg name="x" default="0.0" />
+        <arg name="y" default="0.0" />
+        <arg name="z" default="0.0" />
+
+        <node pkg="deliverybot_mapping" type="3D_map_loader"    name="pcd_map_loader"    output="screen"> 
+            <param name="roll" value="$(arg roll)" />
+            <param name="pitch" value="$(arg pitch)" />
+            <param name="yaw" value="$(arg yaw)" />
+            <param name="x" value="$(arg x)" />
+            <param name="y" value="$(arg y)" />
+            <param name="z" value="$(arg z)" />
+        </node>
+    </group>
+
+</launch>    
