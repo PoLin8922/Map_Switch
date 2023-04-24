@@ -161,8 +161,9 @@ include_directories(
 catkin_install_python(PROGRAMS
   scripts/multimap_server_node.py
   scripts/itri_map_server.py
+  scripts/map_server_json.py
   scripts/location_marker.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts
 )
 
 ## Mark executables for installation
@@ -192,7 +193,10 @@ catkin_install_python(PROGRAMS
 #   # myfile2
 #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 # )
-
+install(FILES
+  scripts/switcher_env.json
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/scripts
+)
 #############
 ## Testing ##
 #############
