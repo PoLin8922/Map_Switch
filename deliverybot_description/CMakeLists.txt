@@ -1,31 +1,23 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(deliverybot_description)
+project(deliverybot_delivery)
 
-find_package(catkin REQUIRED)
+
+find_package(catkin REQUIRED COMPONENTS
+  rospy
+)
 
 catkin_package()
 
-install(FILES
-  rviz/rviz.rviz
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/rviz
+
+include_directories(
+# include
+  ${catkin_INCLUDE_DIRS}
 )
 
-install(FILES
-  urdf/dbot.gazebo
-  urdf/dbot.xacro
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}/urdf
+catkin_install_python(PROGRAMS
+  scripts/send_goal.py
+  scripts/delivery_client.py
+  scripts/delivery_server.py
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
-install(
-  DIRECTORY
-    urdf/meshes
-  DESTINATION
-      ${CATKIN_PACKAGE_BIN_DESTINATION}/urdf
-)
-
-install(
-  DIRECTORY
-    urdf/materials/textures
-  DESTINATION
-      ${CATKIN_PACKAGE_BIN_DESTINATION}/urdf/materials
-)
