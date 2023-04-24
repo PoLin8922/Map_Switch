@@ -60,3 +60,19 @@ SET(CMAKE_CXX_FLAGS "-O2 -g -Wall ${CMAKE_CXX_FLAGS}")
 
 add_executable(3D_map_loader nodes/3D_map_loader.cpp)
 target_link_libraries(3D_map_loader ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+install(TARGETS 3D_map_loader
+  RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+
+install(
+  DIRECTORY
+    configs
+  DESTINATION
+      ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
+
+install(
+  DIRECTORY
+    launch
+  DESTINATION
+      ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
