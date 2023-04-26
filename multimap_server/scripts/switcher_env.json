@@ -1,10 +1,10 @@
 {
     "first_a":{
-        "map_path": "/home/adv/NavMap/ITRI/B14_Indoor/mymap.yaml",
+        "map_path": "/home/berlin/catkin_ws/src/rdd21_deliverybot/deliverybot_mapping/maps/itri_maps/PCD_files/ZhiLing_map/20220711_B14_Outdoor/mymap.yaml",
         "initial_pose": [29.3330860138, -15.2780687332, 1.53373789787]
     },
     "first_b":{
-        "map_path": "/home/adv/NavMap/ITRI/B14_Indoor/mymap.yaml",
+        "map_path": "/home/berlin/catkin_ws/src/rdd21_deliverybot/deliverybot_mapping/maps/building/floor.yaml",
         "initial_pose": [19.1861743927, 34.5959701538, -1.50449383259]
     },
     "b_2":{
